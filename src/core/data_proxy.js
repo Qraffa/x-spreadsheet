@@ -584,11 +584,11 @@ export default class DataProxy {
     });
   }
 
-  setNoEdited(ri,ci) {
+  setEdited(ri,ci,property,value) {
     this.changeData(() => {
       const {rows } = this;
       const cell = rows.getCell(ri, ci);
-      cell['editable'] = false;
+      cell[property] = value;
     })
   }
 
