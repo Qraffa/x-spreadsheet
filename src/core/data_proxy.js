@@ -584,6 +584,27 @@ export default class DataProxy {
     });
   }
 
+  setNoEdited(ri,ci) {
+    this.changeData(() => {
+      const {rows } = this;
+      const cell = rows.getCell(ri, ci);
+      cell['editable'] = false;
+    })
+  }
+
+  getIsEdited(ri,ci) {
+    const {rows} = this;
+    if (rows.getCell(ri,ci) == null) {
+      this.changeData(() => {
+        const {rows} = this;
+        const cell = rows.getCellOrNew(ri,ci);
+      })
+      return true
+    }
+    let cell =  rows.getCell(ri,ci)
+    return cell['editable']==null?true:cell['editable']
+  }
+
   // state: input | finished
   setSelectedCellText(text, state = 'input') {
     const { autoFilter, selector, rows } = this;
